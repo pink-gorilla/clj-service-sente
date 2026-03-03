@@ -1,12 +1,12 @@
 (ns goldly.service.core
   (:require
-   [taoensso.timbre :refer-macros [infof warnf]]
+   [taoensso.timbre :refer-macros [info warn]]
    [promesa.core :as p]
    [reagent.core :as r]
    [modular.ws.core :refer [send!]]))
 
 (defn print-result [[event-type data]]
-  (warnf "service result rcvd: type: %s data: %s" event-type data))
+  (warn "service result rcvd: type: " event-type " data: " event-type data))
 
 ; run with callback
 
@@ -15,7 +15,7 @@
                     cb print-result}
                :as params}]
   (let [p-clean (dissoc params :cb :a :where)]
-    (infof "running service :%s args: %s" fun args)
+    (info "running service " fun  " args: " fun args)
     (send! [:clj/service p-clean] cb timeout)
     nil))
 
@@ -35,6 +35,7 @@
           :or {timeout 120000}} opts
          r (p/deferred)
          on-result (fn [msg]
+                     (info "received clj result: " (:data msg))
                      (if (= msg :chsk/timeout)
                        (p/reject! r {:msg "timeout"})
                        (let [[_ data] msg

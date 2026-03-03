@@ -7,10 +7,7 @@
   org.pinkgorilla/extension {:mvn/version "0.0.16"}
   org.pinkgorilla/modular {:mvn/version "0.3.76"}
   org.pinkgorilla/permission {:mvn/version "0.2.20"}
-  org.pinkgorilla/websocket {:mvn/version "0.2.32"}
-  
-  
-  }
+  org.pinkgorilla/websocket {:mvn/version "0.2.33"}}
  :aliases
  {; github ci  
   :build {:deps {io.github.clojure/tools.build {:mvn/version "0.9.6"}

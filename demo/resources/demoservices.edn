@@ -19,8 +19,7 @@
                         {:exts (clip/ref :exts)
                          :env {:cookie-db demo.fortune-cookie/db}
                          :permission-service (:users (clip/ref :token))})}
-  :sente {:start (modular.ws.core/start-websocket-server :jetty)}
-  :sente-websocket {:start (modular.ws.core/start-websocket-server :jetty)}
+  :sente {:start (modular.ws.core/start-websocket-server :jetty)} 
   :webly {:start (webly.spa/start-webly
                   {:exts (clip/ref :exts)
                    :ctx {:token (clip/ref :token)
