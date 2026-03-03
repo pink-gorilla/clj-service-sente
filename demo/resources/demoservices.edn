@@ -10,20 +10,24 @@
                    (:timbre/clj (clip/ref :config)))}
 
   ; empty users because we get user-identity via oauth2 which is not included here.
-  :permission {:start (modular.permission.core/start-permissions {})}
-
+  :token {:start (token.core/start-token-service
+                  {:users {}
+                   :secret "AbHzj834ri9"
+                   :providers {}
+                   :auth-expiry 604800})}
   :clj-service {:start (clj-service.core/start-clj-services
-                        (clip/ref :permission)
+                        (:users (clip/ref :token))
                         (clip/ref :exts))}
-
+  :sente {:start (modular.ws.core/start-websocket-server :jetty)}
   :sente-websocket {:start (modular.ws.core/start-websocket-server :jetty)}
   :webly {:start (webly.spa/start-webly
                   {:exts (clip/ref :exts)
-                   :ctx {:sente (clip/ref :sente-websocket)}}
+                   :ctx {:token (clip/ref :token)
+                         :sente (clip/ref :sente)}}
                   (clip/ref :config)
                   (:profile #ref [:modular]))
           :stop (webly.spa/stop-webly this)}
-  
+
 ;  
   }}
 

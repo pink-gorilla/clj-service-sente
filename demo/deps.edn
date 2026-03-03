@@ -1,12 +1,9 @@
 {:paths ["src"
          "resources"]
  :deps
- {org.pinkgorilla/webly {:mvn/version "0.9.725"}
+ {org.pinkgorilla/webly {:mvn/version "0.10.730"}
   org.pinkgorilla/css-theme {:mvn/version "0.1.8"} ; webly spa builder uses them.
-  org.pinkgorilla/ui-tailwind {:mvn/version "0.1.8"}
   org.pinkgorilla/ui-router {:mvn/version "0.2.43"}
-
-  ;org.pinkgorilla/webserver {:mvn/version "0.2.66"}
   org.pinkgorilla/clj-service {:local/root ".." :deps/manifest :deps}}
 
  :aliases
