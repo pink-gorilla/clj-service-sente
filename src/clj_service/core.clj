@@ -56,24 +56,61 @@
 
 ; start service
 
-(defn- exts->services [exts]
-  (->> (get-extensions exts {:clj-services nil})
-       (map :clj-services)
+(defn- exts->services [exts k]
+  (->> (get-extensions exts {k nil})
+       (map k)
        (remove nil?)))
 
 (defn expose-stateless-services-from-extensions [this exts]
-  (let [services (exts->services exts)]
+  (let [services (exts->services exts :clj-services)]
     (write-edn-private :clj-services services)
     (doall
      (map #(expose-functions this %) services))))
+
+;; stateful 
+
+(defn ctx->fixed-args [this ctx]
+  (cond 
+    (keyword? ctx) (let [v (get (:env this) ctx)
+                         ;v (if (var? v) (var-get v) v)
+                         fixed-args [v]]
+                     ;(info "keyword-fixed arg:" fixed-args)
+                     fixed-args)
+    (boolean? ctx) [(:env this)]
+    :else nil
+    ))
+
+(defn expose-stateful-function
+  [{:keys [env] :as this} {:keys [fun permission ctx]
+                           :or {permission nil ctx nil}}]
+  (info "exposing [" fun "]   permission: " permission " env " ctx)
+  (expose-function this {:function fun
+                         :permission permission
+                         :fixed-args (ctx->fixed-args this ctx)}))
+
+(defn expose-stateful-services-from-extensions [this exts]
+  (let [funs (exts->services exts :clj-services2)
+        all-funs (apply concat funs)]
+    (write-edn-private :clj-services2 funs)
+    (doall
+     (map #(expose-stateful-function this %) all-funs))))
+
+(defn env-clean [env]
+  (->> env 
+       (map (fn [[k v]]
+              [k (if (var? v) (var-get v) v)] 
+              ))
+       (into {})))
 
 (defn start-clj-services
   "starts the clj-service service.
    exposes stateless services that are discovered via the extension system.
    non stateless services need to be exposed via expose-service"
-  [permission-service exts]
+  [{:keys [exts env permission-service]}]
   (info "starting clj-services ..")
-  (let [this {:services (atom {})
+  (let [env (env-clean (or env {}))
+        this {:services (atom {})
+              :env env
               :permission-service permission-service}]
     ; expose services list (which is stateful)
     (expose-function this
@@ -83,9 +120,12 @@
     ; expose services from extensions (which are stateless)
     (info "exposing stateless services from extension..")
     (expose-stateless-services-from-extensions this exts)
+    (info "exposing stateful services from extension..")
+    (expose-stateful-services-from-extensions this exts)
     (info "creating websocket responder..")
     ; create websocket message handler
     (create-websocket-responder this)
     (info "clj-services running!")
     ; return the service state
     this))
+

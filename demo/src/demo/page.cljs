@@ -18,10 +18,15 @@
 (def add-a (r/atom {}))
 (def ex-a (r/atom {}))
 (def slow-a (r/atom {}))
+(def cookie-a (r/atom {}))
 
 (defn clj-quote []
   ; clj exec no args
   (clj->atom quote-a 'demo.service/quote))
+
+(defn clj-cookie []
+  ; clj exec no args
+  (clj->atom cookie-a 'demo.fortune-cookie/get-cookie))
 
 (defn clj-add []
   ; clj exec with args
@@ -41,6 +46,10 @@
    [:div.bg-green-500.m-5.p-5
     [:button.bg-blue-500 {:on-click #(clj-quote)} "get quote (fast)"]
     [:p "result: " (pr-str @quote-a)]]
+
+    [:div.bg-green-500.m-5.p-5
+    [:button.bg-blue-500 {:on-click #(clj-cookie)} "stateful service - fortunedb"]
+    [:p "result: " (pr-str @cookie-a)]]
 
    [:div.bg-green-500.m-5.p-5
     [:button.bg-blue-500 {:on-click #(clj-add)} "add numbers (clj)"]

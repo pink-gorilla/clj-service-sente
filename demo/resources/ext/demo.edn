@@ -16,6 +16,9 @@
  
  :cljs-routes-reitit demo.app/routes
 
+ :clj-services2 [{:fun demo.fortune-cookie/get-cookie :ctx :cookie-db}]
+ 
+
  :clj-services {:name "demo"
                 :permission nil
                 :symbols [demo.service/add
