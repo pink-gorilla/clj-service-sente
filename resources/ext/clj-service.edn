@@ -1,4 +1,4 @@
-{:name "clj-service"
+{:name "clj-service-sente"
  :lazy false
  ; build
  ; the namespace needs to be changed, because clj-service does not have anythiung to do
@@ -10,9 +10,6 @@
                                           }}
  ; run
  
- :web/routes [["/api/clj-service"
-               {; this handler is not yet working. but since it has an api-route, it is here.
-                :post clj-service.handler/service-handler ; clj-service allows requests via http post
-                :middleware [webserver.middleware.api/wrap-api-handler]}]]
+
 ; 
  }

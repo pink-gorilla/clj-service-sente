@@ -16,13 +16,11 @@
  
  :cljs-routes-reitit demo.app/routes
 
- :clj-services2 [{:fun demo.fortune-cookie/get-cookie :ctx :cookie-db}]
+ :clj-service [{:fun demo.fortune-cookie/get-cookie :ctx :cookie-db}
+               {:fun demo.service/add }
+               {:fun demo.service/quote }
+               {:fun demo.service/quote-slow }
+               {:fun demo.service/ex:ctx }]
  
-
- :clj-services {:name "demo"
-                :permission nil
-                :symbols [demo.service/add
-                          demo.service/quote
-                          demo.service/quote-slow
-                          demo.service/ex]}}
+ }
 

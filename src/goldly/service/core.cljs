@@ -15,7 +15,7 @@
                     cb print-result}
                :as params}]
   (let [p-clean (dissoc params :cb :a :where)]
-    (info "running service " fun  " args: " fun args)
+    (info "clj-call-sente " fun " args: " args)
     (send! [:clj/service p-clean] cb timeout)
     nil))
 
@@ -35,15 +35,22 @@
           :or {timeout 120000}} opts
          r (p/deferred)
          on-result (fn [msg]
-                     (info "received clj result: " (:data msg))
+                     (info "clj-sente result: " msg)
+                     ; [:clj/service {:result "2026-03-04 09:58:45"}]
                      (if (= msg :chsk/timeout)
-                       (p/reject! r {:msg "timeout"})
+                       ; timeout means we reject
+                       (p/reject! r "timeout")
+                       ; else the result could be error or data
                        (let [[_ data] msg
+                             _ (info "received clj result: " data)
                              {:keys [result error]} data]
                          (if error
                            (p/reject! r error)
                            (p/resolve! r result)))))]
-     (run-cb {:fun fun :args (into [] args) :timeout timeout :cb on-result})
+     (run-cb {:fun fun 
+              :args (into [] args) 
+              :timeout timeout 
+              :cb on-result})
      r)))
 
 (defn clj-atom

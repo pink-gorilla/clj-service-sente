@@ -15,15 +15,18 @@
                    :secret "AbHzj834ri9"
                    :providers {}
                    :auth-expiry 604800})}
-  :clj-service {:start (clj-service.core/start-clj-services
-                        {:exts (clip/ref :exts)
-                         :env {:cookie-db demo.fortune-cookie/db}
-                         :permission-service (:users (clip/ref :token))})}
+  :clj {:start (clj-service.core/start-clj-services
+                  {:exts (clip/ref :exts)
+                   :env {:cookie-db demo.fortune-cookie/db}})}
   :sente {:start (modular.ws.core/start-websocket-server :jetty)} 
+  :clj-sente {:start (clj-service.sente/create-websocket-responder
+                          {:token (clip/ref :token)
+                           :clj (clip/ref :clj)})}
   :webly {:start (webly.spa/start-webly
                   {:exts (clip/ref :exts)
                    :ctx {:token (clip/ref :token)
-                         :sente (clip/ref :sente)}}
+                         :sente (clip/ref :sente)
+                         :clj (clip/ref :clj)}}
                   (clip/ref :config)
                   (:profile #ref [:modular]))
           :stop (webly.spa/stop-webly this)}

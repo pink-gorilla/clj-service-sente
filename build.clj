@@ -3,8 +3,8 @@
    [clojure.tools.build.api :as b]
    [deps-deploy.deps-deploy :as dd]))
 
-(def lib 'org.pinkgorilla/clj-service)
-(def version (format "0.6.%s" (b/git-count-revs nil)))
+(def lib 'org.pinkgorilla/clj-service-sente)
+(def version (format "0.7.%s" (b/git-count-revs nil)))
 (def class-dir "target/classes")
 (def basis (b/create-basis {:project "deps.edn"}))
 (def jar-file (format "target/%s-%s.jar" (name lib) version))
@@ -21,9 +21,9 @@
     [:developer
      [:name "pink-gorilla"]]]
    [:scm
-    [:url "https://github.com/pink-gorilla/clj-service/"]
-    [:connection "scm:git:git://github.com/pink-gorilla/clj-service.git"]
-    [:developerConnection "scm:git:ssh://git@github.com/pink-gorilla/clj-service.git"]]])
+    [:url "https://github.com/pink-gorilla/clj-service-sente/"]
+    [:connection "scm:git:git://github.com/pink-gorilla/clj-service-sente.git"]
+    [:developerConnection "scm:git:ssh://git@github.com/pink-gorilla/clj-service-sente.git"]]])
 
 (def opts {:class-dir class-dir
            :lib lib

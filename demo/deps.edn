@@ -4,22 +4,15 @@
  {org.pinkgorilla/webly {:mvn/version "0.10.730"}
   org.pinkgorilla/css-theme {:mvn/version "0.1.8"} ; webly spa builder uses them.
   org.pinkgorilla/ui-router {:mvn/version "0.2.43"}
-  org.pinkgorilla/clj-service {:local/root ".." :deps/manifest :deps}
   ;org.pinkgorilla/websocket {:local/root "/home/florian/repo/pink-gorilla/websocket" :deps/manifest :deps}
+  org.pinkgorilla/clj-service-sente {:local/root ".." :deps/manifest :deps}
   }
 
  :aliases
- {:webly {:exec-fn webly.spa/webly-build
-          :exec-args {:config [{}]
-                      :profile "npm-install"}}
-
-  :npm-install {:exec-args {:profile "npm-install"}}
-  :compile {:exec-args {:profile "compile"}}
-  :release {:exec-args {:profile "release"}}
-  :release-adv {:exec-args {:profile "release-adv"}}
-  :static {:exec-args {:profile "static"}}
-  :ci {:exec-args {:profile "ci"}}
-
+ {:npm-install {:exec-fn webly.spa/webly-build
+                :exec-args {:config ["democonfig.edn"]
+                            :profile "npm-install"}}
+  
   :run {:exec-fn modular.system/start!
         :exec-args {:config ["democonfig.edn"] 
                     :services "demoservices.edn"
