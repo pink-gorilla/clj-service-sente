@@ -11,7 +11,7 @@
   ; ctx needs to have :clj :token
   (defmethod -event-msg-handler :clj/service
     [{:keys [event _id _?data uid client-id uid] :as req}]
-    (warn "websocket browser-client-id: " client-id " uid:" uid)
+    ;(warn "websocket browser-client-id: " client-id " uid:" uid)
     ; client-id is browser-session id
     ; uid is our username
     (let [[_ clj-call] event ; _ is :clj/service
