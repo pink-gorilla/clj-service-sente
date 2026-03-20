@@ -1,6 +1,6 @@
 (ns goldly.service.core
   (:require
-   [taoensso.timbre :refer-macros [info warn]]
+   [taoensso.timbre :refer-macros [debug info warn]]
    [promesa.core :as p]
    [reagent.core :as r]
    [modular.ws.core :refer [send!]]))
@@ -35,7 +35,7 @@
           :or {timeout 120000}} opts
          r (p/deferred)
          on-result (fn [msg]
-                     (info "clj-sente result: " msg)
+                     (debug "clj-sente result: " msg)
                      ; [:clj/service {:result "2026-03-04 09:58:45"}]
                      (if (= msg :chsk/timeout)
                        ; timeout means we reject
