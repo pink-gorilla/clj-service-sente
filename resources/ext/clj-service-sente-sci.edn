@@ -1,4 +1,4 @@
-{:extension/name :clj-service-sente
+{:extension/name :clj-service-sente-sci
  ; build
  ; the namespace needs to be changed, because clj-service does not have anythiung to do
  ; with goldly. however we dont want to break existing code, so it is like that for now.
