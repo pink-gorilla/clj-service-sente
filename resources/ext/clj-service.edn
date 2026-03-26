@@ -1,15 +1,13 @@
-{:name "clj-service-sente"
- :lazy false
+{:extension/name :clj-service-sente
  ; build
  ; the namespace needs to be changed, because clj-service does not have anythiung to do
  ; with goldly. however we dont want to break existing code, so it is like that for now.
- :cljs-namespace [goldly.service.core]
- :cljs-ns-bindings {'goldly.service.core {'clj goldly.service.core/clj
+ :cljs/module :main
+ :cljs/when-defined :sci
+ :cljs/namespace [goldly.service.core]
+ :cljs/ns-bindings {'goldly.service.core {'clj goldly.service.core/clj
                                           'clj-atom goldly.service.core/clj-atom
                                           'run-cb goldly.service.core/run-cb ; depreciate ??
                                           }}
- ; run
- 
-
 ; 
  }

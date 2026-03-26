@@ -1,9 +1,10 @@
 {:paths ["src"
          "resources"]
  :deps
- {org.pinkgorilla/webly {:mvn/version "0.10.730"}
+ {org.pinkgorilla/webly {:mvn/version "0.20.733"}
+  org.pinkgorilla/shadow-x {:mvn/version "0.3.22"}
   org.pinkgorilla/css-theme {:mvn/version "0.1.8"} ; webly spa builder uses them.
-  org.pinkgorilla/ui-router {:mvn/version "0.2.43"}
+  org.pinkgorilla/ui-router {:mvn/version "0.3.46"}
   ;org.pinkgorilla/websocket {:local/root "/home/florian/repo/pink-gorilla/websocket" :deps/manifest :deps}
   org.pinkgorilla/clj-service-sente {:local/root ".." :deps/manifest :deps}
   }

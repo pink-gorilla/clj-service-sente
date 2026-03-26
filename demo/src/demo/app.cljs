@@ -1,6 +1,6 @@
 (ns demo.app
   (:require
-   [webly.spa.env :refer [get-resource-path]]))
+   [shadowx.core :refer [get-resource-path]]))
 
 (defn wrap-webly [page match]
   [:div
