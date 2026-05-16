@@ -3,16 +3,14 @@
  :deps
  {org.clojure/clojure {:mvn/version "1.12.4"}
   org.pinkgorilla/timbre {:mvn/version "0.0.8"}
-  org.pinkgorilla/extension {:mvn/version "0.0.16"}
-  org.pinkgorilla/modular {:mvn/version "0.3.77"}
-  org.pinkgorilla/clj-service {:mvn/version "0.7.7"}
+  org.pinkgorilla/extension {:mvn/version "0.0.19"}
+  org.pinkgorilla/modular {:mvn/version "0.5.81"}
+  org.pinkgorilla/clj-service {:mvn/version "0.7.12"}
   org.pinkgorilla/websocket {:mvn/version "0.2.35"}}
  :aliases
  {; github ci  
   :build {:deps {io.github.clojure/tools.build {:mvn/version "0.9.6"}
                  slipset/deps-deploy {:mvn/version "0.2.1"}}
-          :ns-default build}
-  
-  }
+          :ns-default build}}
  ;
  }
